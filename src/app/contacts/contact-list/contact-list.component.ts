@@ -31,6 +31,4 @@ export class ContactListComponent {
   onContactSelected(contact: Contact) {
     this.contactWasSelected.emit(contact);
   }
-
 }
-

@@ -4,15 +4,12 @@ import { Contact } from './contact.model';
 @Component({
   selector: 'cms-contacts',
   templateUrl: './contacts.component.html',
-  styleUrls: ['./contacts.component.css']
+  styleUrls: ['./contacts.component.css'],
 })
 export class ContactsComponent {
-
   onContactSelected: Contact | null = null;
-  
-    constructor() { }
-  
-    ngOnInit(): void {
-    }
 
+  constructor() {}
+
+  ngOnInit(): void {}
 }

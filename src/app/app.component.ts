@@ -9,7 +9,6 @@ export class AppComponent {
   title = 'cms';
   loadedFeature: string = 'documents';
 
-
   onNavigate(feature: string) {
     this.loadedFeature = feature;
   }

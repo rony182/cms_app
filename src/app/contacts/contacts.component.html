@@ -1,21 +1,21 @@
 <div class="row">
-    <div class="container">
-        <div class="col-md-5">
-            <cms-contact-list
-            (contactWasSelected)="onContactSelected=$event"
-            ></cms-contact-list>
+  <div class="container">
+    <div class="col-md-5">
+      <cms-contact-list
+        (contactWasSelected)="onContactSelected = $event"
+      ></cms-contact-list>
+    </div>
+    <div class="col-md-4">
+      <cms-contact-detail
+        *ngIf="onContactSelected; else noContactSelected"
+        [contact]="onContactSelected"
+      ></cms-contact-detail>
+      <ng-template #noContactSelected>
+        <div class="alert alert-info">
+          <h4>No Contact Selected</h4>
+          <p>Please select a contact from the list.</p>
         </div>
-        <div class="col-md-4">
-            <cms-contact-detail
-            *ngIf="onContactSelected; else noContactSelected"
-            [contact]="onContactSelected"
-            ></cms-contact-detail>
-            <ng-template #noContactSelected>
-                <div class="alert alert-info">
-                    <h4>No Contact Selected</h4>
-                    <p>Please select a contact from the list.</p>
-                </div>
-            </ng-template>
-        </div>
-</div>
+      </ng-template>
+    </div>
+  </div>
 </div>
