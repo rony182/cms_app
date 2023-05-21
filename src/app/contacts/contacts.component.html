@@ -1,15 +1,11 @@
 <div class="row">
   <div class="container">
     <div class="col-md-5">
-      <cms-contact-list
-        (contactWasSelected)="onContactSelected = $event"
-      ></cms-contact-list>
+      <cms-contact-list></cms-contact-list>
     </div>
     <div class="col-md-4">
-      <cms-contact-detail
-        *ngIf="onContactSelected; else noContactSelected"
-        [contact]="onContactSelected"
-      ></cms-contact-detail>
+      <cms-contact-detail *ngIf="onContactSelected; else noContactSelected"
+        [contact]="onContactSelected"></cms-contact-detail>
       <ng-template #noContactSelected>
         <div class="alert alert-info">
           <h4>No Contact Selected</h4>
