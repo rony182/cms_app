@@ -4,7 +4,7 @@
   </div>
 
   <div class="col-md-4">
-    <cms-document-detail
+    <!-- <cms-document-detail
       *ngIf="selectedDocument; else noDocumentSelected"
       [document]="selectedDocument"
     ></cms-document-detail>
@@ -13,6 +13,7 @@
         <h4>No Document Selected</h4>
         <p>Please select a document from the list.</p>
       </div>
-    </ng-template>
+    </ng-template> -->
+    <router-outlet></router-outlet>
   </div>
 </div>

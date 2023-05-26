@@ -10,7 +10,7 @@ import { MessageService } from '../message.service';
 export class MessageListComponent implements OnInit {
   messages: Message[] = [];
 
-  onAddMessage(message: Message) {
+  onAddMessage(message) {
     this.messages.push(message);
   }
 

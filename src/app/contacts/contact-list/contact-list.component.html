@@ -5,7 +5,7 @@
         <h4 class="text-bold">Contacts</h4>
       </div>
       <div class="col-xs-4 text-right">
-        <button class="btn btn-success">New Contact</button>
+        <button class="btn btn-success" [routerLink]="['new']">New Contact</button>
       </div>
     </div>
   </div>
@@ -14,7 +14,6 @@
       <cms-contact-item
         *ngFor="let contactEl of contacts"
         [contact]="contactEl"
-        (selectedContactEvent)="onContactSelected(contactEl)"
       ></cms-contact-item>
     </div>
   </div>
