@@ -30,7 +30,6 @@ const appRoutes: Routes = [
     ],
   },
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule],

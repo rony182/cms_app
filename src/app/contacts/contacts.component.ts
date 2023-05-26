@@ -11,13 +11,11 @@ import { ContactService } from './contact.service';
 export class ContactsComponent implements OnInit {
   onContactSelected: Contact | null = null;
 
-  constructor( private contactService: ContactService ) {}
+  constructor(private contactService: ContactService) {}
 
   ngOnInit() {
-    this.contactService.contactSelectedEvent.subscribe(
-      (contact: Contact) => {
-        this.onContactSelected = contact;
-      }
-    );
+    this.contactService.contactSelectedEvent.subscribe((contact: Contact) => {
+      this.onContactSelected = contact;
+    });
   }
 }

@@ -8,7 +8,7 @@ import { DocumentService } from './document.service';
   styleUrls: ['./documents.component.css'],
   providers: [DocumentService],
 })
-export class DocumentsComponent implements OnInit{
+export class DocumentsComponent implements OnInit {
   selectedDocument: Document | null = null;
 
   ngOnInit() {

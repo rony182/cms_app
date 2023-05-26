@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Contact } from '../contact.model';
 import { ContactService } from '../contact.service';
-import { WindRefService } from 'src/app/wind-ref.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
@@ -11,7 +10,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class ContactDetailComponent implements OnInit {
   contact: Contact;
-  id : number;
+  id: number;
 
   constructor(
     private contactService: ContactService,
