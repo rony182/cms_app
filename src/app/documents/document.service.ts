@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class DocumentService {
-  maxDocumentId: number;
+  maxDocumentId: string;
   documentListChangedEvent = new Subject<Document[]>();
 
   documentSelectedEvent = new EventEmitter<Document>();
@@ -41,7 +41,7 @@ export class DocumentService {
     this.documents.splice(pos, 1);
     this.documentListChangedEvent.next(this.documents.slice());
   }
-  getMaxId(): number {
+  getMaxId(): string {
     let maxId = 0;
     for (let document of this.documents) {
       let currentId = parseInt(document.id);
@@ -49,14 +49,15 @@ export class DocumentService {
         maxId = currentId;
       }
     }
-    return maxId;
+    return maxId.toString();
   }
   addDocument(newDocument: Document) {
     if (!newDocument) {
       return;
     }
-    this.maxDocumentId++;
-    newDocument.id = this.maxDocumentId.toString();
+    let currentmaxId = parseInt(this.maxDocumentId);
+    currentmaxId++;
+    newDocument.id = currentmaxId.toString();
     this.documents.push(newDocument);
     this.documentListChangedEvent.next(this.documents.slice());
   }
