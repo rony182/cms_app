@@ -18,8 +18,11 @@ export class MessageEditComponent implements OnInit {
   onSendMessage() {
     const subjectValue = this.subjectRef.nativeElement.value;
     const msgTextValue = this.msgTextRef.nativeElement.value;
+    const id = this.messageService.getMaxId();
+    console.log(id);
+  
     const newMessage = new Message(
-      1,
+      id,
       subjectValue,
       msgTextValue,
       this.currentSender

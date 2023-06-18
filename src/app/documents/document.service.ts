@@ -1,6 +1,6 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Document } from './document.model';
-import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -13,23 +13,36 @@ export class DocumentService {
   documentSelectedEvent = new EventEmitter<Document>();
   documentChangedEvent = new EventEmitter<Document[]>();
 
-  private documents: Document[] = [];
+  documents: Document[] = [];
 
-  constructor() {
-    this.documents = MOCKDOCUMENTS;
-    this.maxDocumentId = this.getMaxId();
+  constructor(private http: HttpClient) {
+    this.http
+      .get<Document[]>(
+        'https://cms-project-1ccee-default-rtdb.firebaseio.com/documents.json'
+      )
+      .subscribe(
+        (documents: Document[]) => {
+          this.documents = documents;
+          this.maxDocumentId = this.getMaxId();
+          this.documents.sort((a, b) =>
+            a.name > b.name ? 1 : b.name > a.name ? -1 : 0
+          );
+          this.documentListChangedEvent.next(this.documents.slice());
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
   }
+
   getDocuments(): Document[] {
     return this.documents.slice();
   }
+
   getDocument(id: string): Document {
-    for (let document of this.documents) {
-      if (document.id === id) {
-        return document;
-      }
-    }
-    return null;
+    return this.documents.find((document) => document.id === id) || null;
   }
+
   deleteDocument(document: Document) {
     if (!document) {
       return;
@@ -39,8 +52,9 @@ export class DocumentService {
       return;
     }
     this.documents.splice(pos, 1);
-    this.documentListChangedEvent.next(this.documents.slice());
+    this.storeDocuments();
   }
+
   getMaxId(): string {
     let maxId = 0;
     for (let document of this.documents) {
@@ -51,6 +65,7 @@ export class DocumentService {
     }
     return maxId.toString();
   }
+
   addDocument(newDocument: Document) {
     if (!newDocument) {
       return;
@@ -59,8 +74,9 @@ export class DocumentService {
     currentmaxId++;
     newDocument.id = currentmaxId.toString();
     this.documents.push(newDocument);
-    this.documentListChangedEvent.next(this.documents.slice());
+    this.storeDocuments();
   }
+
   updateDocument(originalDocument: Document, newDocument: Document) {
     if (!originalDocument || !newDocument) {
       return;
@@ -71,6 +87,20 @@ export class DocumentService {
     }
     newDocument.id = originalDocument.id;
     this.documents[pos] = newDocument;
-    this.documentListChangedEvent.next(this.documents.slice());
+    this.storeDocuments();
+  }
+
+  storeDocuments() {
+    let documents = JSON.stringify(this.documents);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.http
+      .put(
+        'https://cms-project-1ccee-default-rtdb.firebaseio.com/documents.json',
+        documents,
+        { headers: headers }
+      )
+      .subscribe(() => {
+        this.documentListChangedEvent.next(this.documents.slice());
+      });
   }
 }
