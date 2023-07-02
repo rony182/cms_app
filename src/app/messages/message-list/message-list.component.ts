@@ -1,6 +1,8 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Message } from '../message.model';
 import { MessageService } from '../message.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'cms-message-list',
@@ -10,16 +12,14 @@ import { MessageService } from '../message.service';
 export class MessageListComponent implements OnInit {
   messages: Message[] = [];
 
-  onAddMessage(message) {
-    this.messages.push(message);
-  }
+  
+  constructor(
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.messages = this.messageService.getMessages();
-    this.messageService.messageChangeEvent.subscribe((messages: Message[]) => {
-      this.messages = messages;
+    this.route.data.subscribe((data) => {
+      this.messages = data.messages;
     });
   }
-
-  constructor(private messageService: MessageService) {}
 }
